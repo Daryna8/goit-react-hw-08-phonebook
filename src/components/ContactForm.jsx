@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import s from './PhoneBook.module.css';
+import { TextField, Button, Grid, Paper } from '@mui/material';
 
 export const ContactForm = ({ handleAddContact }) => {
   const [name, setName] = useState('');
@@ -26,30 +26,36 @@ export const ContactForm = ({ handleAddContact }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">
-        Name
-        <input
-          value={name}
-          onChange={handleChangeInput}
-          type="text"
-          name="name"
-          required
-        />
-      </label>
-      <label htmlFor="number">
-        Number
-        <input
-          value={number}
-          onChange={handleChangeInput}
-          type="tel"
-          name="number"
-          required
-        />
-      </label>
-      <button className={s.add_contanct_button} type="submit">
-        Add contact
-      </button>
-    </form>
+    <Paper elevation={3} component={'form'} onSubmit={handleSubmit}>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <TextField
+            label="Name"
+            value={name}
+            onChange={handleChangeInput}
+            type="text"
+            name="name"
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Number"
+            value={number}
+            onChange={handleChangeInput}
+            type="tel"
+            name="number"
+            required
+            fullWidth
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" type="submit" fullWidth>
+            Add contact
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
