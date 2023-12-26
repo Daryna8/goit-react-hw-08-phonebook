@@ -35,6 +35,7 @@ input[type='tel'] {
   width: 100%;
   padding: 10px;
   background-color: #4caf50;
+  border-radius: 4px;
   color: white;
   border: none;
   cursor: pointer;
@@ -75,4 +76,13 @@ ul li {
 
 ul li:last-child {
   border-bottom: none;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 680px;
+  margin: 40px auto;
+  gap: 20px;
 }

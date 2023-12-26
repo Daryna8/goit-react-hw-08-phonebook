@@ -27,7 +27,7 @@ export const ContactForm = ({ handleAddContact }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="">
+      <label htmlFor="name">
         Name
         <input
           value={name}
@@ -37,7 +37,7 @@ export const ContactForm = ({ handleAddContact }) => {
           required
         />
       </label>
-      <label htmlFor="">
+      <label htmlFor="number">
         Number
         <input
           value={number}

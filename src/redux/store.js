@@ -17,17 +17,16 @@ const persistConfig = {
   key: 'phonebookData',
   version: 1,
   storage,
-  blacklist: ['filter'],
 };
 
+const persistedReducer = persistReducer(persistConfig, phonebookReducer);
+
 const rootReducer = combineReducers({
-  phonebookData: phonebookReducer,
+  phonebookData: persistedReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
