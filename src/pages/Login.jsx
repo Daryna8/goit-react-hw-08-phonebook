@@ -1,11 +1,37 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import s from '../components/PhoneBook.module.css';
+import { useDispatch } from 'react-redux';
+import { loginUserThunk } from '../redux/auth/operations';
+import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      email: 'jhkerhk1@example.com',
+      password: '1234567',
+    },
+  });
+  const dispatch = useDispatch();
+
+  const submit = data => {
+    dispatch(loginUserThunk(data))
+      .unwrap()
+      .then(res => {
+        toast.success(`Welcome ${res.user.email}!`);
+        navigate('/contacts');
+      })
+      .catch(() => {
+        toast.error('Ups, check your credentials!!!');
+      });
+  };
   return (
     <div className={s.wrapper}>
       <Box
+        onSubmit={handleSubmit(submit)}
         component="form"
         noValidate
         sx={{
@@ -21,6 +47,7 @@ export const Login = () => {
           name="email"
           autoComplete="email"
           autoFocus
+          {...register('email')}
         />
         <TextField
           margin="normal"
@@ -31,6 +58,7 @@ export const Login = () => {
           type="password"
           id="password"
           autoComplete="current-password"
+          {...register('password')}
         />
 
         <Button

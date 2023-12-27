@@ -12,17 +12,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { authReducer } from './auth/slice';
 
 const persistConfig = {
-  key: 'phonebookData',
+  key: 'auth',
   version: 1,
   storage,
+  whitelist: ['token'],
 };
 
-const persistedReducer = persistReducer(persistConfig, phonebookReducer);
+const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const rootReducer = combineReducers({
-  phonebookData: persistedReducer,
+  phonebookData: phonebookReducer,
+  auth: persistedReducer,
 });
 
 export const store = configureStore({

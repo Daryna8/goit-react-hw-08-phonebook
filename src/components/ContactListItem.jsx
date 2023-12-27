@@ -1,16 +1,17 @@
-import s from './PhoneBook.module.css';
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const ContactListItem = ({ id, name, number, handleDeleteContact }) => {
   return (
     <li>
       {name}: {number}
-      <button
-        className={s.delete_button}
+      <IconButton
         onClick={() => handleDeleteContact(id)}
-        type="button"
+        edge="end"
+        aria-label="delete"
       >
-        Delete
-      </button>
+        <DeleteIcon />
+      </IconButton>
     </li>
   );
 };

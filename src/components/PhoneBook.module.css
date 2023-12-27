@@ -13,6 +13,12 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-size: 48px;
+  font-weight: 700;
+  font-style: italic;
+}
+
 form {
   padding: 20px;
   margin-bottom: 20px;
@@ -37,12 +43,9 @@ ul {
 ul li {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   padding: 5px 0;
   border-bottom: 1px solid #ddd;
-}
-
-ul li:last-child {
-  border-bottom: none;
 }
 
 .wrapper {
@@ -53,4 +56,23 @@ ul li:last-child {
   max-width: 680px;
   margin: 40px auto;
   gap: 20px;
+}
+
+.navEmail {
+  margin-right: 20%;
+}
+
+.loader {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  background-color: rgb(201, 228, 248);
+}
+
+.home_page_img {
+  display: grid;
+  height: 100vh;
+  background-image: url(../img/1.jpg);
+  background-size: cover;
+  background-position: center;
 }

@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { api, clearToken, setToken } from 'configAxios/api';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
-
-export const CreateUserThunk = createAsyncThunk(
+export const createUserThunk = createAsyncThunk(
   'auth/create',
-  async (credentials, thunkApi) => {
+  async (body, thunkApi) => {
     try {
-      const res = await axios.post('users/signup', credentials);
+      const res = await api.post('users/signup', body);
+      setToken(res.data.token);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -15,11 +14,12 @@ export const CreateUserThunk = createAsyncThunk(
   }
 );
 
-export const LoginUserThunk = createAsyncThunk(
+export const loginUserThunk = createAsyncThunk(
   'auth/login',
-  async (credentials, thunkApi) => {
+  async (body, thunkApi) => {
     try {
-      const res = await axios.post('users/login', credentials);
+      const res = await api.post('users/login', body);
+      setToken(res.data.token);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -27,12 +27,12 @@ export const LoginUserThunk = createAsyncThunk(
   }
 );
 
-export const LogoutUserThunk = createAsyncThunk(
+export const logoutUserThunk = createAsyncThunk(
   'auth/logout',
   async (_, thunkApi) => {
     try {
-      const res = await axios.post('users/logout');
-      return res.data;
+      await api.post('users/logout');
+      clearToken();
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -42,8 +42,15 @@ export const LogoutUserThunk = createAsyncThunk(
 export const refreshThunk = createAsyncThunk(
   'auth/refresh',
   async (_, thunkApi) => {
+    const savedToken = thunkApi.getState().auth.token;
+    if (savedToken) {
+      setToken(savedToken);
+    } else {
+      return thunkApi.rejectWithValue('Token is not exist');
+    }
+
     try {
-      const res = await axios.get('users/current');
+      const res = await api.get('users/current');
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

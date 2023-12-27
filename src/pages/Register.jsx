@@ -1,11 +1,24 @@
 import React from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import s from '../components/PhoneBook.module.css';
+import { useDispatch } from 'react-redux';
+import { createUserThunk } from '../redux/auth/operations';
+import { useForm } from 'react-hook-form';
 
 export const Register = () => {
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const submit = data => {
+    dispatch(createUserThunk(data));
+  };
   return (
     <div className={s.wrapper}>
-      <Box component="form" noValidate sx={{ mt: 1 }}>
+      <Box
+        onSubmit={handleSubmit(submit)}
+        component="form"
+        noValidate
+        sx={{ mt: 1 }}
+      >
         <TextField
           margin="normal"
           required
@@ -15,6 +28,7 @@ export const Register = () => {
           name="name"
           autoComplete="name"
           autoFocus
+          {...register('name')}
         />
         <TextField
           margin="normal"
@@ -24,6 +38,7 @@ export const Register = () => {
           label="Email Address"
           name="email"
           autoComplete="email"
+          {...register('email')}
         />
         <TextField
           margin="normal"
@@ -34,6 +49,7 @@ export const Register = () => {
           type="password"
           id="password"
           autoComplete="current-password"
+          {...register('password')}
         />
 
         <Button

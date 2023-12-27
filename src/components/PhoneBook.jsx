@@ -11,6 +11,7 @@ import {
 } from '../redux/phonebook/operations';
 import { setFilter } from '../redux/phonebook/phonebookSlice';
 import { Paper } from '@mui/material';
+import { toast } from 'react-toastify';
 
 export const PhoneBook = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export const PhoneBook = () => {
 
   const handleAddContact = newContact => {
     if (contacts.map(c => c.name).includes(newContact.name)) {
-      alert(`${newContact.name} is already in contacts.`);
+      toast.warn(`${newContact.name} is already in contacts.`);
       return;
     }
     dispatch(addContactThunk(newContact));
