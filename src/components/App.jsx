@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Header } from './Header';
-import { PhoneBook } from './PhoneBook';
+import { PhoneBook } from '../pages/PhoneBook';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from 'pages/NotFound';
 import { Login } from 'pages/Login';
@@ -11,7 +11,7 @@ import { PublicRoute } from 'guards/PublicRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshThunk } from '../redux/auth/operations';
 import { Loader } from './Loader';
-// import { Loader } from './Loader';
+import { selectIsRefresh } from '../redux/auth/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const App = () => {
     dispatch(refreshThunk());
   }, [dispatch]);
 
-  const isRefresh = useSelector(state => state.auth.isRefresh);
+  const isRefresh = useSelector(selectIsRefresh);
 
   return isRefresh ? (
     <Loader />

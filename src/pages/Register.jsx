@@ -4,12 +4,19 @@ import s from '../components/PhoneBook.module.css';
 import { useDispatch } from 'react-redux';
 import { createUserThunk } from '../redux/auth/operations';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 export const Register = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const submit = data => {
-    dispatch(createUserThunk(data));
+    dispatch(createUserThunk(data))
+      .then(res => {
+        toast.success(`Successful registration! Welcome ${res.user.email}!`);
+      })
+      .catch(() => {
+        toast.error('Ups, something went wrong. Please try again!!!');
+      });
   };
   return (
     <div className={s.wrapper}>

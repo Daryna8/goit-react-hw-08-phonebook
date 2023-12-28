@@ -3,12 +3,12 @@ import { ContactListItem } from './ContactListItem';
 export const ContactList = ({ filteredContacts, handleDeleteContact }) => {
   return (
     <ul>
-      {filteredContacts.map(({ id, name, phone }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <ContactListItem
           key={id}
           id={id}
           name={name}
-          number={phone}
+          number={number}
           handleDeleteContact={handleDeleteContact}
         />
       ))}

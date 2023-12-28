@@ -5,10 +5,8 @@ import { useDispatch } from 'react-redux';
 import { loginUserThunk } from '../redux/auth/operations';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
 
@@ -17,7 +15,6 @@ export const Login = () => {
       .unwrap()
       .then(res => {
         toast.success(`Welcome ${res.user.email}!`);
-        navigate('/contacts');
       })
       .catch(() => {
         toast.error('Ups, check your credentials!!!');

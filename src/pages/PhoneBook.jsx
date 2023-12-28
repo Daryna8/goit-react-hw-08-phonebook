@@ -1,7 +1,7 @@
-import s from './PhoneBook.module.css';
-import { ContactForm } from './ContactForm';
-import { Filter } from './Filter';
-import { ContactList } from './ContactList';
+import s from '../components/PhoneBook.module.css';
+import { ContactForm } from '../components/ContactForm';
+import { Filter } from '../components/Filter';
+import { ContactList } from '../components/ContactList';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -12,14 +12,20 @@ import {
 import { setFilter } from '../redux/phonebook/phonebookSlice';
 import { Paper } from '@mui/material';
 import { toast } from 'react-toastify';
+import {
+  selectContacts,
+  selectError,
+  selectFilter,
+  selectLoading,
+} from '../redux/phonebook/selectors';
 
 export const PhoneBook = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.phonebookData.contacts.items);
-  const filter = useSelector(state => state.phonebookData.filter);
-  const loading = useSelector(state => state.phonebookData.contacts.isLoading);
-  const error = useSelector(state => state.phonebookData.contacts.error);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContactsThunk());

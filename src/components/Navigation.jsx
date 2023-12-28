@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import { UserMenu } from './UserMenu';
+import { selectIsLoggedIn } from '../redux/auth/selectors';
 
 export const Navigation = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
     <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
       {isLoggedIn ? (
