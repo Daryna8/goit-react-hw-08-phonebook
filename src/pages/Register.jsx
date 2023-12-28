@@ -11,6 +11,7 @@ export const Register = () => {
   const dispatch = useDispatch();
   const submit = data => {
     dispatch(createUserThunk(data))
+      .unwrap()
       .then(res => {
         toast.success(`Successful registration! Welcome ${res.user.email}!`);
       })
